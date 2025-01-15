@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice OCR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .image-container, .text-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap; /* Preserve line breaks */
+            word-wrap: break-word;
+        }
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 0 auto 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="email"] {
+            padding: 10px;
+            margin-right: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Invoice OCR Extracted Data</h1>
+
+    <!-- Container for Image and Text -->
+    <div class="container">
+        <!-- Image Display -->
+        <div class="image-container">
+            <h2>Uploaded Image</h2>
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Invoice Image">
+        </div>
+
+        <!-- Raw Text Display -->
+        <div class="text-container">
+            <h2>Raw OCR Text</h2>
+            <pre>{{ text }}</pre>
+        </div>
+    </div>
+
+    <!-- Email Form -->
+    <div class="form-container">
+        <h2>Send Raw Data via Email</h2>
+        <form action="/send-email" method="POST">
+            <input type="email" name="email" placeholder="Enter recipient email" required>
+            <input type="hidden" name="raw_text" value="{{ text }}">
+            <button type="submit">Send Email</button>
+        </form>
+    </div>
+
+    <!-- Back to Upload Button -->
+    <div class="form-container">
+        <a href="/">Back to Upload</a>
+    </div>
+
+</body>
+</html>
