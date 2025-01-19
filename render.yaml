@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: flask-project
+    env: docker
+    plan: starter
+    dockerfilePath: ./dockerfile
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 5000
