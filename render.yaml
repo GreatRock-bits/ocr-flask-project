@@ -3,7 +3,7 @@ services:
     name: flask-project
     env: docker
     plan: starter
-    dockerfilePath: ./dockerfile
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: FLASK_ENV
         value: production

@@ -54,7 +54,7 @@ def home():
 def extract_text(image_path):
     """Extract text from an image."""
     image = Image.open(image_path)
-    return pytesseract.image_to_text(image)
+    return pytesseract.image_to_string(image)
 
 
 
