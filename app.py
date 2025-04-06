@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from PIL import Image
 import pytesseract
@@ -12,17 +12,24 @@ from email.mime.multipart import MIMEMultipart
 
 # Initialize Flask App
 app = Flask(__name__)
+app.secret_key = 'aZymmbs'
 
 # Email configuration
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_USER = 'dfki.haal02@gmail.com'  # Replace with your email
-EMAIL_PASSWORD = 'vuwa atob skel zbbx'  # Replace with your email password
+EMAIL_USER = 'ocr.greatrocksbits@gmail.com'  # Replace with your email
+EMAIL_PASSWORD = 'abld aijl wbpw istb'  # Replace with your email password
 
 # Set up folder for uploads
-UPLOAD_FOLDER = 'uploads'
+# UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'tiff'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -30,17 +37,28 @@ def home():
     if request.method == 'POST':
         # Handle file upload
         if 'image' not in request.files:
-            return "No file part in the request", 400
+            flash("No file part in the request.")
+            return redirect(url_for('home'))
+
         file = request.files['image']
         if file.filename == '':
-            return "No file selected", 400
+            flash("No file selected.")
+            return redirect(url_for('home'))
+
+        # Validate file format
+        if not allowed_file(file.filename):
+            flash("Unsupported file format. Please upload a valid image file (png, jpg, jpeg, tiff).")
+            return redirect(url_for('home'))
+
+        # Get selected OCR language
+        ocr_lang = request.form.get('language', 'eng')  # default to English
 
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
-        # Perform OCR
-        text = extract_text(filepath)
+        # Perform OCR with selected language
+        text = extract_text(filepath, lang=ocr_lang)
 
         # Parse the invoice text into structured data
         table_data = parse_invoice_to_table(text)
@@ -49,12 +67,12 @@ def home():
     return render_template('index.html')
 
 
-
-
-def extract_text(image_path):
-    """Extract text from an image."""
+def extract_text(image_path, lang='eng'):
+    """Extract text from an image using Tesseract with the selected language."""
     image = Image.open(image_path)
-    return pytesseract.image_to_string(image)
+    return pytesseract.image_to_string(image, lang=lang)
+
+
 
 
 
@@ -131,7 +149,7 @@ def send_email():
         msg = MIMEMultipart()
         msg['From'] = EMAIL_USER
         msg['To'] = recipient_email
-        msg['Subject'] = "Raw OCR Data"
+        msg['Subject'] = "GreatRocks<bits>: Raw OCR Data"
 
         # Email body
         body = f"<h1>Raw OCR Data</h1><pre>{raw_text}</pre>"
@@ -144,9 +162,11 @@ def send_email():
         server.send_message(msg)
         server.quit()
 
-        return "Email sent successfully!", 200
+        return render_template('message.html', message="Email sent successfully!", link_text="Go Back to Home",
+                               link_url=url_for('index')), 200
     except Exception as e:
-        return f"Failed to send email: {str(e)}", 500
+        return render_template('message.html', message=f"Failed to send email: {str(e)}", link_text="Go Back to Home",
+                               link_url=url_for('index')), 500
 
 
 

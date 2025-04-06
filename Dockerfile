@@ -5,6 +5,7 @@ FROM python:3.9-slim
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-eng \
+    tesseract-ocr-ind \
     libtesseract-dev \
     && apt-get clean
 
