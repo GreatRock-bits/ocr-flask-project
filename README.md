@@ -39,8 +39,8 @@ Licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/ocr-flask-api.git
-   cd ocr-flask-api
+   git clone https://github.com/GreatRock-bits/ocr-flask-project.git
+   cd ocr-flask-project
 
    # Set up virtual environment
    python -m venv venv
