@@ -15,6 +15,9 @@ A lightweight and efficient Optical Character Recognition (OCR) API built using 
 - 🔁 Optional language selection via query parameter
 
 ---
+## 📺 Live Demo
+
+👉 Try it now: [https://grb-ocr-app.onrender.com/](https://grb-ocr-app.onrender.com/)
 
 ## 📦 Requirements
 
