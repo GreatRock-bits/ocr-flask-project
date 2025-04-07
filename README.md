@@ -10,6 +10,7 @@ A lightweight and efficient Optical Character Recognition (OCR) API built using 
 
 - 🔤 **Multi-language OCR**: Supports text extraction in **English** and **Bahasa Indonesia**
 - 🖼️ Accepts standard image formats (`.png`, `.jpg`, `.jpeg`)
+- 🖼️ Email functionality to send the extracted text 
 - ⚡ Lightweight Flask-based REST API
 - 📦 Easy deployment with minimal setup
 - 🔁 Optional language selection via query parameter
