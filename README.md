@@ -36,4 +36,18 @@ A lightweight and efficient Optical Character Recognition (OCR) API built using 
    git clone https://github.com/yourusername/ocr-flask-api.git
    cd ocr-flask-api
 
+---
+
+## 🐳 Alternatively Run with Docker
+
+You can run this OCR Flask app directly using Docker. No setup needed!
+
+### ✅ Prerequisites
+- Docker installed on your system ([Get Docker](https://www.docker.com/products/docker-desktop))
+
+### 📥 Pull the Image from Docker Hub
+
+```bash
+docker pull tifat58/flask_project_v3
+
 
