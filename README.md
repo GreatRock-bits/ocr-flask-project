@@ -13,6 +13,7 @@ A lightweight and efficient Optical Character Recognition (OCR) API built using 
 - 🖼️ Email functionality to send the extracted text 
 - ⚡ Lightweight Flask-based REST API
 - 📦 Easy deployment with minimal setup
+- 🐳 Dockerized for easy deployment
 - 🔁 Optional language selection via query parameter
 
 ---
@@ -30,12 +31,23 @@ A lightweight and efficient Optical Character Recognition (OCR) API built using 
 
 ---
 
+## 📄 License
+
+Licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.  
+
 ## 🛠 Installation
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/ocr-flask-api.git
    cd ocr-flask-api
+
+   # Set up virtual environment
+   python -m venv venv
+   source venv/bin/activate  # Windows: venv\Scripts\activate
+   
+   # Install dependencies
+   pip install -r requirements.txt
 
 ---
 
