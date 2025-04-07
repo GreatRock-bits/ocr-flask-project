@@ -62,5 +62,8 @@ You can run this OCR Flask app directly using Docker. No setup needed!
 
 ```bash
 docker pull tifat58/flask_project_v3
+```
 
+## 📬 Contact
+- contact@greatrockbits.com
 
